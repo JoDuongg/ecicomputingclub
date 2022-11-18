@@ -1,93 +1,196 @@
-var canvas = document.querySelector("canvas"),
-  ctx = canvas.getContext("2d");
+var getclickf = document.querySelector('.firstclk');
+getclickf.style.opacity = "0";
 
-var ww,wh;
+var setPack = function(getText) {
+	charming(getText);
+	var createDiv = document.createElement('div');
+	createDiv.className = "box";
+	getText.parentNode.insertBefore(createDiv, getText);
+	createDiv.appendChild(getText);
+	var clickDiv2 = document.createElement('div');
+	clickDiv2.className = "child";
+	clickDiv2.style.transformOrigin = "0% 50%";
+	clickDiv2.style.transform = "scaleX(0)";
+	createDiv.appendChild(clickDiv2);
+	var cd = anime({
+		targets: clickDiv2,
+		scaleX: 1,
+		easing: 'easeInOutQuint',
+		duration: 300,
+		complete: function() {
+			clickDiv2.style.transformOrigin = "100% 50%";
+			getText.style.opacity= "1";
+			var short = anime({
+				targets: clickDiv2,
+				easing: 'easeInOutQuint',
+				delay: 100,
+				duration: 300,
+				scaleX: 0
+			});
+		}
+	})
+} /* Đây là gói đóng gói tạo block pink */
 
-function onResize(){
-  ww = canvas.width = window.innerWidth;
-  wh = canvas.height = window.innerHeight;
-}
-
-ctx.strokeStyle = "red";
-ctx.shadowBlur = 25;
-ctx.shadowColor = "hsla(0, 100%, 60%,0.5)";
-
-var precision = 100;
-var hearts = [];
-var mouseMoved = false;
-function onMove(e){
-  mouseMoved = true;
-  if(e.type === "touchmove"){
-    hearts.push(new Heart(e.touches[0].clientX, e.touches[0].clientY));
-    hearts.push(new Heart(e.touches[0].clientX, e.touches[0].clientY));
-  }
-  else{
-    hearts.push(new Heart(e.clientX, e.clientY));
-    hearts.push(new Heart(e.clientX, e.clientY));
-  }
-}
-
-var Heart = function(x,y){
-  this.x = x || Math.random()*ww;
-  this.y = y || Math.random()*wh;
-  this.size = Math.random()*2 + 1;
-  this.shadowBlur = Math.random() * 10;
-  this.speedX = (Math.random()+0.2-0.6) * 8;
-  this.speedY = (Math.random()+0.2-0.6) * 8;
-  this.speedSize = Math.random()*0.05 + 0.01;
-  this.opacity = 1;
-  this.vertices = [];
-  for (var i = 0; i < precision; i++) {
-    var step = (i / precision - 0.5) * (Math.PI * 2);
-    var vector = {
-      x : (15 * Math.pow(Math.sin(step), 3)),
-      y : -(13 * Math.cos(step) - 5 * Math.cos(2 * step) - 2 * Math.cos(3 * step) - Math.cos(4 * step)) 
-    }
-    this.vertices.push(vector);
-  }
-}
-
-Heart.prototype.draw = function(){
-  this.size -= this.speedSize;
-  this.x += this.speedX;
-  this.y += this.speedY;
-  ctx.save();
-  ctx.translate(-1000,this.y);
-  ctx.scale(this.size, this.size);
-  ctx.beginPath();
-  for (var i = 0; i < precision; i++) {
-    var vector = this.vertices[i];
-    ctx.lineTo(vector.x, vector.y);
-  }
-  ctx.globalAlpha = this.size;
-  ctx.shadowBlur = Math.round((3 - this.size) * 10);
-  ctx.shadowColor = "hsla(0, 100%, 60%,0.5)";
-  ctx.shadowOffsetX = this.x + 1000;
-  ctx.globalCompositeOperation = "screen"
-  ctx.closePath();
-  ctx.fill()
-  ctx.restore();
-};
+// Xử lý vẽ tim
+var getHeartBeat = document.querySelectorAll('.container .heart polyline');
+var getHeart = document.querySelectorAll('.container .heart path');
+var get = document.querySelector('.container .heart');
+var timmau = document.querySelector('.container .heart .timmau');
 
 
-function render(a){
-  requestAnimationFrame(render);
-  
-  hearts.push(new Heart())
-  ctx.clearRect(0,0,ww,wh);
-  for (var i = 0; i < hearts.length; i++) {
-    hearts[i].draw();
-    if(hearts[i].size <= 0){
-      hearts.splice(i,1);
-      i--;
-    }
-  }
-}
+timmau.style.opacity= "0";
+var theTime = anime.timeline();
+theTime.add({
+	targets: getHeartBeat,
+	delay: 100,
+	strokeDashoffset: [anime.setDashoffset, 0],
+	easing: 'easeInOutSine',
+	duration: 2000,
+	update: function(percent) {
+		var thePercent = Math.round(percent.progress);
+		// Nội dung của nút bên dưới
+		document.querySelector('.container .sup').innerHTML= "Rock and Roll at ECI Computing Club " + (thePercent+1922) + " - " + (thePercent+1923) +" (CLICK ME)";
+	}
+});
+theTime.add({
+	targets: getHeart,
+	offset: 1000,
+	strokeDashoffset: [anime.setDashoffset, 0],
+	easing: 'easeInOutSine',
+	duration: 600,
+	complete: function() {
+		var makeColor = anime({
+			targets: timmau,
+			opacity: [0,1],
+			easing: 'easeInOutQuint',
+			duration: 1300,
+			loop:true,
+			complete: function(){
+				var nhiptim = anime({
+					targets: timmau,
+					opacity: [1,0],
+					easing: 'easeOutSine',
+					duration: 1300,
+				});
+			}
+		});
+		var hideHeartLine = anime({
+			targets: '.container .heart path .cls-2',
+			opacity: [1,0],
+			duration:1000,
+			complete: function(){
+				setPack(document.querySelector('.firstclk'));
+			}
+		})
+	}
+});
+
+// Click Here Text Xulytion
+getclickf.addEventListener('mouseenter', function() {
+	anime.remove();
+	var charmingedText = anime({
+		targets: '.box span',
+		translateY: [-2,0],
+		translateX: [-2,0],
+		rotate: [6,0],
+		color: ['#6d3842','#ea4335'],
+		delay: function(el, i) { return i*20},
+		duration: 500
+	})
+});
+getclickf.addEventListener('mouseleave', function() {
+	anime.remove();
+	var charmingedText = anime({
+		targets: '.box span',	
+		translateY: [-0.5,0],
+		translateX: [-0.5,0],
+		rotate: [-1,0],
+		color: ['#6d3842','#ea4335'],
+		delay: function(el, i) { return i*20},
+		duration: 400,
+		direction: 'reverse'
+	})
+});
+
+// Tạo div layer 2
+var divLayer = document.querySelector('.layerMask');
+divLayer.style.transformOrigin = "50% 0%";
+divLayer.style.transform = "scaleY(0)";
 
 
+getclickf.addEventListener('click', function(){
+	getclickf.style.display = "none";
+	anime({
+		targets: divLayer,
+		easing: 'easeOutSine',
+		scaleY: 1,
+		duration: 500
+	});
+	var heyCrush = document.querySelectorAll('.crush path');
+	var finalText = document.querySelector('.parse');
+	var theLetter = document.querySelector('.lathu');
+	theLetter.addEventListener('mouseenter', function() {
+		anime({
+			targets: theLetter,
+			rotate: [0,356],
+			duration: 1000
+		})
+	});
+	theLetter.addEventListener('click', function(){
+		anime({
+			targets: divLayer2,
+			easing: 'easeInOutQuint',
+			scaleX: 1,
+			duration: 300
+		});
+	});
 
-onResize();
-window.addEventListener("mousemove", onMove);
-window.addEventListener("touchmove", onMove);
-window.addEventListener("resize", onResize);
-requestAnimationFrame(render);
+	theLetter.style.opacity = "0";
+	theLetter.style.transform = "translateY(-4)"
+	charming(finalText);
+	charming(finalText);
+	theTime2= anime.timeline();
+	theTime2.add({
+		targets: heyCrush,
+		strokeDashoffset: [anime.setDashoffset,0],
+		easing: 'easeOutSine',
+		delay: function(el, i) {
+			return i*100;
+		},
+		duration: 3000,
+	})
+	theTime2.add({
+		targets: '.parse span',
+		translateY: [-3,0],
+		delay: function(el, i) {
+			return i*10;
+		},
+		duration: 250,
+		color: ['#232323','#e22748'],
+		offset: 3000,
+	});
+	theTime2.add({
+		targets: theLetter,
+		opacity: [0,1],
+		easing: 'easeInOutQuint',
+		offset: "-=400ms",
+		duration: 200,
+		complete: function() {
+			var drag = anime({
+				targets: theLetter,
+				translateY: [-4,4],
+				direction: 'alternate',
+				duration: 600,
+				loop: true
+			})
+		}
+	});
+});
+
+var cantho =document.querySelector('.main');
+cantho.insertAdjacentHTML('afterend', '<div class="author mt-5"><div class="row"><div class="col-12"><div class="me text-danger text-right"></div></div></div></div>');
+
+// Phần popup khi bạn nhấn vào nút "Nhịp tim của anh"
+document.querySelector('.Description .modal-title').innerHTML = '<i class="far fa-comment-alt"></i>&nbsp;Our GG Classroom code q7eee4t </i>';
+document.querySelector('.Description .modal-body').innerHTML = 'Are you interested in coding? Hacking? Web design? Competitive Progamming? Or you need some help with your Com Sci classes? Then ECI Computing Club is for you. Come join us and have fun, Go Rams!!! <i class="fas fa-heart"></i> ';
+var author = document.querySelector('.author .me');author.style.opacity = "0.5";
