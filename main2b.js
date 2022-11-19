@@ -49,7 +49,7 @@ theTime.add({
 	update: function(percent) {
 		var thePercent = Math.round(percent.progress);
 		// Content of little box
-		document.querySelector('.container .sup').innerHTML= "Rock and Roll at ECI Computing Club " + (thePercent+1922) + " - " + (thePercent+1923) +" (CLICK ME)";
+		document.querySelector('.container .sup').innerHTML= "Introduction for ECI Computing Club " + (thePercent+1922) + " - " + (thePercent+1923) +" (CLICK ME)";
 	}
 });
 theTime.add({
