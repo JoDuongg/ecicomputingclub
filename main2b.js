@@ -191,6 +191,6 @@ var cantho =document.querySelector('.main');
 cantho.insertAdjacentHTML('afterend', '<div class="author mt-5"><div class="row"><div class="col-12"><div class="me text-danger text-right"></div></div></div></div>');
 
 // Phần popup khi bạn nhấn vào nút "Nhịp tim của anh"
-document.querySelector('.Description .modal-title').innerHTML = '<i class="far fa-comment-alt"></i>&nbsp;Our GG Classroom code q7eee4t </i>';
+document.querySelector('.Description .modal-title').innerHTML = '<i class="far fa-comment-alt"></i>&nbsp;Our GG Classroom code "q7eee4t" </i>';
 document.querySelector('.Description .modal-body').innerHTML = 'Are you interested in coding? Hacking? Web design? Competitive Progamming? Or you need some help with your Com Sci classes? Then ECI Computing Club is for you. Come join us and have fun, Go Rams!!! <i class="fas fa-heart"></i> ';
 var author = document.querySelector('.author .me');author.style.opacity = "0.5";
