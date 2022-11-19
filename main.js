@@ -6,7 +6,7 @@ var turnOffHor = document.getElementById("closing");
 var detonate = document.getElementById("detonate");
 var again = document.getElementById("again");
 var panel2 = document.getElementById("panel2");
-alarm.volume = 0.5; //volume level
+alarm.volume = 1.0; //volume level
 
 var time = document.getElementById("time");
 function showCountDown() {
@@ -44,7 +44,7 @@ activate.addEventListener("click", function () {
 	alarm.play();
 	setTimeout(function () {
 		panel.classList.add("show");
-		theCount = setInterval(showCountDown, 1000);
+		theCount = setInterval(showCountDown, 1100);
 		alarm.load();
 		alarm.play();
 	}, 500);
@@ -92,7 +92,7 @@ again.addEventListener("click", function () {
 	alarm.play();
 	setTimeout(function () {
 		panel.classList.add("show");
-		theCount = setInterval(showCountDown, 1000);
+		theCount = setInterval(showCountDown, 1100);
 		alarm.load();
 		alarm.play();
 	}, 500);

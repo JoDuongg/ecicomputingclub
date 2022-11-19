@@ -29,9 +29,9 @@ var setPack = function(getText) {
 			});
 		}
 	})
-} /* Đây là gói đóng gói tạo block pink */
+} /* Creating block pink */
 
-// Xử lý vẽ tim
+// Handle the heart
 var getHeartBeat = document.querySelectorAll('.container .heart polyline');
 var getHeart = document.querySelectorAll('.container .heart path');
 var get = document.querySelector('.container .heart');
@@ -48,7 +48,7 @@ theTime.add({
 	duration: 2000,
 	update: function(percent) {
 		var thePercent = Math.round(percent.progress);
-		// Nội dung của nút bên dưới
+		// Content of little box
 		document.querySelector('.container .sup').innerHTML= "Rock and Roll at ECI Computing Club " + (thePercent+1922) + " - " + (thePercent+1923) +" (CLICK ME)";
 	}
 });
@@ -190,7 +190,7 @@ getclickf.addEventListener('click', function(){
 var cantho =document.querySelector('.main');
 cantho.insertAdjacentHTML('afterend', '<div class="author mt-5"><div class="row"><div class="col-12"><div class="me text-danger text-right"></div></div></div></div>');
 
-// Phần popup khi bạn nhấn vào nút "Nhịp tim của anh"
-document.querySelector('.Description .modal-title').innerHTML = '<i class="far fa-comment-alt"></i>&nbsp;Our GG Classroom code "q7eee4t" </i>';
+// Pop up box
+document.querySelector('.Description .modal-title').innerHTML = '<i class="far fa-comment-alt"></i>&nbsp;Our classroom code "q7eee4t" </i>';
 document.querySelector('.Description .modal-body').innerHTML = 'Are you interested in coding? Hacking? Web design? Competitive Progamming? Or you need some help with your Com Sci classes? Then ECI Computing Club is for you. Come join us and have fun, Go Rams!!! <i class="fas fa-heart"></i> ';
 var author = document.querySelector('.author .me');author.style.opacity = "0.5";
