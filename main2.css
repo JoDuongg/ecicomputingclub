@@ -4,7 +4,7 @@
 
 }
 
-/* Tất cả màu bên dưới bạn đều có thể thay đổi được */
+
 html,
 body {
     width: 100%;
@@ -14,7 +14,6 @@ body {
 }
 
 body {
-    /* Bật lên nếu bạn mún thêm ảnh nền */
     background-image: url("./img/bgtinhyeu4.jpg");
     background-color: white;
     background-size: cover;
